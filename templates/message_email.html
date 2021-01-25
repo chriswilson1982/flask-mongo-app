@@ -1,0 +1,12 @@
+<html>
+
+<body>
+    <h1>{{ from_user.display_name() }} sent you a message</h1>
+    <hr />
+    <h2>{{ message.title }}</h2>
+    <p>{{ message.body }}</p>
+    <hr />
+    <p>Go to the <a href="{{ url_for('messages', _external=True, _scheme='https') }}" title="Messages">messages</a> page to view your messages and reply.</p>
+</body>
+
+</html>

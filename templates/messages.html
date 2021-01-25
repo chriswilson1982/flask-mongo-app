@@ -1,0 +1,99 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+    <div class="row pt-5">
+        <div class="col-lg-8">
+            <h1 class="mb-3">Inbox</h1>
+
+            {% for received_message in inbox_messages %}
+            <div class="card border border-muted bg-light rounded mb-3">
+                <div class="card-body">
+                    <h3 class="card-title">{{ received_message.title }}</h3>
+                    <h4 class="card-title text-small text-muted"><small>From: {{ received_message.from_name }}</small></h4>
+                    <p class="card-text">{{ received_message.body }}</p>
+                </div>
+                <div class="card-footer bg-light d-flex justify-content-between">
+                    <div class="my-auto">
+                        <p class="my-auto text-muted">{{ received_message.date_string }}</p>
+                    </div>
+                    <div class="my-auto">
+                        <button class="btn btn-danger delete-message-button" data-message="{{ received_message.id }}">Delete message</button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+            {% if inbox_messages.count() == 0 %}
+            <p>You have no messages here</p>
+            {% endif %}
+
+
+        </div>
+
+        <div class="col-lg-4">
+            <h1 class="mb-3">Sent messages</h1>
+
+            {% for sent_message in sent_messages %}
+            <div class="card border border-muted bg-light rounded mb-3">
+                <div class="card-body">
+                    <h3 class="card-title">{{ sent_message.title}}</h3>
+                    <h4 class="card-title text-small text-muted"><small>To: {{ sent_message.to_name }}</small></h4>
+                    <p class="card-text">{{ sent_message.body }}</p>
+                </div>
+                <div class="card-footer bg-light d-flex justify-content-between">
+                    <div class="my-auto">
+                        <p class="my-auto text-muted">{{ sent_message.date_string }}</p>
+                    </div>
+                    <div class="my-auto">
+                        <button class="btn btn-warning hide-sent-message-button" data-message="{{ sent_message.id }}">Hide message</button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+            {% if sent_messages.count() == 0 %}
+            <p>You have no messages here</p>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+    <div class="row mb-5 pt-5">
+        <div class="col">
+
+            <div class="bg-secondary text-white rounded p-3 mt-5">
+                <h2>New message</h2>
+                <form id="send-message-form">
+                    <div class="form-group">
+                        <label for="user">To</label>
+                        <select class="form-control" name="user">
+                            <option value="" selected disabled hidden>Select recipient</option>
+                            {% for user in users %}
+                            <option value="{{ user.id }}">{{ user.title + " " + user.first_name + " " + user.last_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input class="form-control" type="text" id="title" name="title" placeholder="Enter title">
+                    </div>
+                    <div class="form-group">
+                        <label for="body">Message</label>
+                        <textarea class="form-control" id="body" name="body" placeholder="Enter message text" rows="4"></textarea>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary send-message-button" type="button">Send</button>
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+{% endblock %}

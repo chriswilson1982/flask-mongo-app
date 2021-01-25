@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 mx-md-auto pt-5">
+            <h1>Register</h1>
+            <form method="POST" action="{{ url_for('register') }}">
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input type="email" class="form-control" name="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <select class="form-control" id="title" name="title" required>
+                        <option value="" selected disabled hidden>Select title</option>
+                        <option value="Mr">Mr</option>
+                        <option value="Mrs">Mrs</option>
+                        <option value="Miss">Miss</option>
+                        <option value="Ms">Ms</option>
+                        <option value="Dr">Dr</option>
+                        <option value="Prof">Prof</option>
+                        <option value="none">No title</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="first_name">First name</label>
+                    <input type="text" class="form-control" name="first_name" placeholder="First name" required>
+                </div>
+                <div class="form-group">
+                    <label for="last_name">Last name</label>
+                    <input type="text" class="form-control" name="last_name" placeholder="Last name" required>
+                </div>
+                <div class="form-group">
+                    <label for="pass">Password</label>
+                    <input type="password" class="form-control" id="pass" name="pass" placeholder="Password" required>
+                    <small class="text-muted form-text my-3">Password must be 8-32 characters long and contain at least one number and one special character.</small>
+                </div>
+                <div class="form-group">
+                    <label for="confirmation">Confirm password</label>
+                    <input type="password" class="form-control" id="confirmation" name="confirmation" placeholder="Confirm password" required>
+                </div>
+                <small class="text-muted form-text my-3">By registering, you agree to allow the data entered above to be stored in a database. This is necessary to perform the functions of this web app. The name that you enter will be visible to
+                    other users for messaging. Your email address will not be visible to other users. Passwords are stored in an encrypted form. Your data will not be used for any purpose other than the functioning of this app. It will never be sold or passed to anyone else. You can delete your account and all associated data at any time in the account management section of your profile page.</small>
+                <div class="form-group mt-3">
+                    <input id="submit-button" type="submit" value="Register" class="btn btn-primary btn-block">
+                </div>
+                {% if error == "1" %}
+                <p class="text-danger">That email address is already in use. Please <a href="{{ url_for('login') }}" title="login">login</a> or contact support if you have forgotten your login details.</p>
+                {% elif error == "2" %}
+                <p class="text-danger">There was an error. You have not been registered.<br />Please contact support.</p>
+                {% endif %}
+            </form>
+
+            <div class="mt-3">
+                <p class="mt-3">Have an account? <a href="{{ url_for('login') }}">Sign in here</a></p>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

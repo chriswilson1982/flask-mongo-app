@@ -1,0 +1,10 @@
+<html>
+    <body>
+        <h1>Welcome {{ user.display_name() }}!</h1>
+        <h2>Thank you for registering with the web app</h2>
+        <p>Your unique user ID is: {{ user.id }}</p>
+        <p>Please verify your email address by following the link below:</p>
+        <a href="{{ confirm_url }}" title="Verify email address">{{ confirm_url }}</a>
+        <p>The link is valid for one hour.</p>
+    </body>
+</html>

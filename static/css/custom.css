@@ -1,0 +1,19 @@
+/* Body top margin to allow for navbar */
+body {
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+/* Reduced opacity on home icon */
+i.home {
+    opacity: 0.5;
+}
+
+/* Select form element plain styling */
+select.form-control {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+}

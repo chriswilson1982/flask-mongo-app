@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 mx-md-auto pt-5">
+            <h1 class="text-primary">Welcome!</h1>
+            <h2>Demonstration of a basic web app using Flask and MongoDB</h2>
+            <p class="text-muted">by Chris Wilson</p>
+            <div class="my-3">
+                {% if current_user.is_authenticated %}
+                <p class="w-100 text-center p-2 my-3 border border-success text-success rounded">You are logged in as {{ current_user.display_name() }}</p>
+                {% else %}
+                <a class="btn btn-primary my-3 w-100" href="{{ url_for('login') }}">Login</a>
+                <p>Don't have an account? <a href="{{ url_for('register') }}">Sign up here</a>.</p>
+                <hr class="my-3" />
+                {% endif %}
+                </p>This is a template for a basic web app using Flask and MongoDB. It uses Flask-Login for authentication, Flask-Pymongo for the database connection, Flask-Bcrypt for password hashing and Flask-Talisman for security. The front end uses Bootstrap for styling.</p>
+                <p>The app features user verification by email, basic note recording and messaging between users with email notifications.</p>
+                <p>You can view the code in the GitHub repository at <a href="https://github.com/chriswilson1982/flask-mongo-app" title="GitHub link">github.com/chriswilson1982/flask-mongo-app</a>.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

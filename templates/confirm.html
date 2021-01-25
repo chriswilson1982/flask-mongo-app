@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 mx-md-auto pt-5">
+            {% if success %}
+            <h1 class="text-primary">Thank you!</h1>
+            <h2>Email address verified successfully</h2>
+            <p>
+            {% else %}
+            <h1 class="text-primary">There was a problem</h1>
+            <h2>Your email address could not be verified</h2>
+            <p>The verification link may be invalid or expired.</p>
+            {% endif %}
+            <hr class="my-3" />
+            <p>Go to the <a href="{{ url_for('login') }}" title="Login">login page</a>.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
