@@ -17,7 +17,11 @@
                         <p class="my-auto text-muted">{{ received_message.date_string }}</p>
                     </div>
                     <div class="my-auto">
-                        <button class="btn btn-danger delete-message-button" data-message="{{ received_message.id }}">Delete message</button>
+                        <form class="delete-message-form">
+                            <input type="hidden" id="csrf_token" name="csrf_token" value="{{ csrf_token() }}">
+                            <input type="hidden" id="message_id" name="message_id" value="{{ received_message.id }}">
+                            <button class="btn btn-danger delete-message-button">Delete message</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -45,7 +49,11 @@
                         <p class="my-auto text-muted">{{ sent_message.date_string }}</p>
                     </div>
                     <div class="my-auto">
-                        <button class="btn btn-warning hide-sent-message-button" data-message="{{ sent_message.id }}">Hide message</button>
+                        <form class="hide-sent-message-form">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <input type="hidden" id="message_id" name="message_id" value="{{ sent_message.id }}">
+                            <button class="btn btn-warning hide-sent-message-button">Hide message</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -65,13 +73,17 @@
 
             <div class="bg-secondary text-white rounded p-3 mt-5">
                 <h2>New message</h2>
-                <form id="send-message-form">
+                <form class="send-message-form">
                     <div class="form-group">
                         <label for="user">To</label>
                         <select class="form-control" name="user">
                             <option value="" selected disabled hidden>Select recipient</option>
                             {% for user in users %}
+                            {% if user.title %}
                             <option value="{{ user.id }}">{{ user.title + " " + user.first_name + " " + user.last_name }}</option>
+                            {% else %}
+                            <option value="{{ user.id }}">{{ user.first_name + " " + user.last_name }}</option>
+                            {% endif %}
                             {% endfor %}
                         </select>
                     </div>
@@ -84,7 +96,8 @@
                         <textarea class="form-control" id="body" name="body" placeholder="Enter message text" rows="4"></textarea>
                     </div>
                     <div>
-                        <button class="btn btn-primary send-message-button" type="button">Send</button>
+                        <input type="hidden" id="csrf_token" name="csrf_token" value="{{ csrf_token() }}">
+                        <button class="btn btn-primary send-message-button">Send</button>
                     </div>
                 </form>
             </div>

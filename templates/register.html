@@ -42,6 +42,7 @@
                 <small class="text-muted form-text my-3">By registering, you agree to allow the data entered above to be stored in a database. This is necessary to perform the functions of this web app. The name that you enter will be visible to
                     other users for messaging. Your email address will not be visible to other users. Passwords are stored in an encrypted form. Your data will not be used for any purpose other than the functioning of this app. It will never be sold or passed to anyone else. You can delete your account and all associated data at any time in the account management section of your profile page.</small>
                 <div class="form-group mt-3">
+                    <input type="hidden" id="csrf_token" name="csrf_token" value="{{ csrf_token() }}">
                     <input id="submit-button" type="submit" value="Register" class="btn btn-primary btn-block">
                 </div>
                 {% if error == "1" %}

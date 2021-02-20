@@ -6,6 +6,7 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 from flask_talisman import Talisman
 from flask_pymongo import PyMongo
 from flask_bcrypt import Bcrypt
+from flask_wtf.csrf import CSRFProtect
 
 # Other modules
 from urllib.parse import urlparse, urljoin
@@ -41,7 +42,7 @@ mongo = PyMongo(app)
 # Create Bcrypt
 bc = Bcrypt(app)
 
-# Create talisman
+# Create Talisman
 csp = {
     'default-src': [
         '\'self\'',
@@ -52,6 +53,10 @@ csp = {
     ]
 }
 talisman = Talisman(app, content_security_policy=csp)
+
+# Create CSRF protect
+csrf = CSRFProtect()
+csrf.init_app(app)
 
 # Create login manager
 login_manager = LoginManager()

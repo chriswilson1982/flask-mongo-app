@@ -11,7 +11,7 @@ $(document).ready(function() {
     });
 
 
-    // Register and validate password
+    // Validate password
     $("#submit-button").click(function(event) {
         var pass = $("#pass").val();
         var confirmation = $("#confirmation").val();
@@ -19,7 +19,7 @@ $(document).ready(function() {
         if (!pass.match(regex)) {
             event.preventDefault();
             alert("Password must be 8-32 characters long and contain at least one number and one special character.");
-        } else if ($("#pass").val() != $("#confirmation").val()) {
+        } else if (pass != confirmation) {
             event.preventDefault();
             alert("Password and confirmation do not match. Please re-enter them and try again.");
         }
@@ -27,14 +27,15 @@ $(document).ready(function() {
 
 
     // Resend validation email
-    $("#verify-button").click(function(event) {
+    $("a.verify-button").click(function(event) {
         event.preventDefault();
-        $.post("/verify", {})
+        $(this).html("Sending email");
+        $(this).css('pointer-events', 'none');
+        $(this).addClass("text-muted");
+        $.post("/verify", $("form.verify-form").serialize())
             .done(function(response) {
                 console.log(response);
-                $("#verify-button").html("Verification email sent");
-                $("#verify-button").css('pointer-events', 'none');
-                $("#verify-button").addClass("text-muted");
+                $("a.verify-button").html("Email sent");
             })
             .fail(function(response) {
                 console.log(response)
@@ -44,7 +45,7 @@ $(document).ready(function() {
 
     // Add note
     $("button.add-note-button").click(function() {
-        $.post("/add_note", $("#add-note-form").serialize())
+        $.post("/add_note", $("form.add-note-form").serialize())
             .done(function(response) {
                 console.log(response);
                 location.reload(true);
@@ -57,9 +58,7 @@ $(document).ready(function() {
 
     // Delete note
     $("button.delete-note-button").click(function() {
-        $.post("/delete_note", {
-                "note_id": $(this).data("note")
-            })
+        $.post("/delete_note", $("form.delete-note-form").serialize())
             .done(function(response) {
                 console.log(response);
                 location.reload(true);
@@ -72,7 +71,7 @@ $(document).ready(function() {
 
     // Send message
     $("button.send-message-button").click(function() {
-        $.post("/send_message", $("#send-message-form").serialize())
+        $.post("/send_message", $("form.send-message-form").serialize())
             .done(function(response) {
                 console.log(response);
                 location.reload(true);
@@ -85,9 +84,7 @@ $(document).ready(function() {
 
     // Delete message
     $("button.delete-message-button").click(function() {
-        $.post("/delete_message", {
-                "message_id": $(this).data("message")
-            })
+        $.post("/delete_message", $("form.delete-message-form").serialize())
             .done(function(response) {
                 console.log(response);
                 location.reload(true);
@@ -100,9 +97,7 @@ $(document).ready(function() {
 
     // Hide sent message
     $("button.hide-sent-message-button").click(function() {
-        $.post("/hide_sent_message", {
-                "message_id": $(this).data("message")
-            })
+        $.post("/hide_sent_message", $("form.hide-sent-message-form").serialize())
             .done(function(response) {
                 console.log(response);
                 location.reload(true);
@@ -115,7 +110,7 @@ $(document).ready(function() {
 
     // Change Name
     $("button.change-name-button").click(function() {
-        $.post("/change_name", $("#change-name-form").serialize())
+        $.post("/change_name", $("form.change-name-form").serialize())
             .done(function(response) {
                 console.log(response);
                 location.reload(true);
@@ -127,10 +122,10 @@ $(document).ready(function() {
 
 
     // Delete account
-    $("button.second-delete").click(function() {
+    $("button.second-delete").click(function(event) {
         if (confirm("Are you sure you want to delete your account?")) {
             console.log("Deleting account");
-            $.post("/delete_account")
+            $.post("/delete_account", $("form.delete-account-form").serialize())
                 .done(function(response) {
                     console.log(response);
                     location.href = "/";
@@ -139,10 +134,9 @@ $(document).ready(function() {
                     console.log(response)
                 });
         } else {
-            event.preventDefault()
+            event.preventDefault();
             $("div.delete-account").collapse("hide");
         }
-
     });
 
 

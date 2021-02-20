@@ -9,11 +9,11 @@
             <div class="table-responsive">
                 <h2 class="my-3 text-muted">Your details</h2>
 
-                <table class="table">
+                <table class="table align-middle">
                     <tbody>
                         <tr>
                             <td>Name</td>
-                            <td>{{ current_user.title + " " + current_user.first_name + " " + current_user.last_name }}
+                            <td>{{ ((current_user.title + " ") if current_user.title else "") + current_user.first_name + " " + current_user.last_name }}
                                 {% if current_user.verified %}
                                 <span class="text-primary mx-3">
                                     <a class="edit-name-button" href="#" title="Edit name button" data-toggle="collapse" data-target="#edit-name">Edit</a>
@@ -29,7 +29,10 @@
                                 <span class="text-success mx-3">Verified</span>
                                 {% else %}
                                 <span class="text-danger mx-3">Not verified</span>
-                                <a id="verify-button" href="#" title="Send validation email">Send verification email</a>
+                                <form class="verify-form d-inline">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" </input>
+                                    <a class="verify-button d-inline" href="" title="Send verification email">Send verification email</a>
+                                </form>
                                 {% endif %}
                             </td>
                         </tr>
@@ -41,7 +44,7 @@
                 </table>
 
                 <div id="edit-name" class="collapse" aria-expanded="false">
-                    <form class="form-inline" id="change-name-form">
+                    <form class="form-inline change-name-form">
                         <label class="sr-only" for="title">Title</label>
                         <select class="form-control m-1" id="title" name="title" required>
                             <option value="Mr" {{ 'selected="selected"' if title == 'Mr' else '' }}>Mr</option>
@@ -50,7 +53,7 @@
                             <option value="Ms" {{ 'selected="selected"' if title == 'Ms' else '' }}>Ms</option>
                             <option value="Dr" {{ 'selected="selected"' if title == 'Dr' else '' }}>Dr</option>
                             <option value="Prof" {{ 'selected="selected"' if title == 'Prof' else '' }}>Prof</option>
-                            <option value="none" {{ 'selected="selected"' if title == '' else '' }}>No title</option>
+                            <option value="" {{ 'selected="selected"' if title == '' else '' }}>No title</option>
                         </select>
 
                         <label class="sr-only" for="first_name">First name</label>
@@ -59,9 +62,10 @@
                         <label class="sr-only" for="last_name">Last name</label>
                         <input type="text" class="form-control m-1" name="last_name" placeholder="Last name" value="{{ current_user.last_name }}" required>
 
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                         <button type="button" class="btn btn-primary m-1 change-name-button">Update</button>
 
-                        <button type="button" class="btn btn-danger m-1" data-toggle="collapse" data-target="#edit-name"><i class="far fa-times"></i></button>
+                        <button class="btn btn-danger m-1" data-toggle="collapse" data-target="#edit-name"><i class="far fa-times"></i></button>
                     </form>
                 </div>
 
@@ -69,7 +73,7 @@
 
             <div class="bg-secondary text-white rounded p-3 mt-5">
                 <h2>Add note</h2>
-                <form id="add-note-form">
+                <form class="add-note-form">
                     <div class="form-group">
                         <label for="title">Title</label>
                         <input class="form-control" type="text" id="title" name="title" placeholder="Enter title">
@@ -79,6 +83,7 @@
                         <textarea class="form-control" id="body" name="body" placeholder="Enter note text" rows="4"></textarea>
                     </div>
                     <div>
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                         <button class="btn btn-primary add-note-button" type="button">Save</button>
                     </div>
                 </form>
@@ -100,7 +105,11 @@
                         <p class="my-auto text-muted">{{ note.date_string }}</p>
                     </div>
                     <div class="my-auto">
-                        <button class="btn btn-danger delete-note-button" data-note="{{ note.id }}">Delete note</button>
+                        <form class="delete-note-form">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <input type="hidden" name="note_id" value="{{ note.id }}">
+                            <button class="btn btn-danger delete-note-button">Delete note</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -122,7 +131,10 @@
                     <button class="btn btn-warning w-100 mb-3 first-delete" data-toggle="collapse" data-target=".delete-account">Delete account</button>
                     <p class="card-text delete-warning">Deleting your account is irreversible. All of your data, including notes and messages (sent and received) will be permanently deleted!</p>
                     <div class="delete-account collapse" aria-expanded="false">
-                        <button class="btn btn-danger w-100 second-delete"><i class="far fa-exclamation-triangle mr-3"></i>Click here to delete!<i class="far fa-exclamation-triangle ml-3"></i></button>
+                        <form class="delete-account-form">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <button class="second-delete btn btn-danger w-100"><i class="far fa-exclamation-triangle mr-3"></i>Click here to delete!<i class="far fa-exclamation-triangle ml-3"></i></button>
+                        </form>
                     </div>
                 </div>
             </div>
