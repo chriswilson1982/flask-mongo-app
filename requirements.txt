@@ -1,9 +1,9 @@
-flask==1.1.2
-flask_bcrypt==0.7.1
-flask_login==0.5.0
+flask==2.3.3
+flask_bcrypt==1.0.1
+flask_login==0.6.2
 flask_pymongo==2.3.0
-flask_talisman==0.7.0
-flask_wtf==0.14.3
-dnspython==2.0.0
-configparser==5.0.1
-itsdangerous==1.1.0
+flask_talisman==1.1.0
+flask_wtf==1.1.1
+dnspython==2.4.2
+configparser==6.0.0
+itsdangerous==2.1.2
