@@ -33,7 +33,7 @@ config.read('configuration.ini')
 default = config['DEFAULT']
 app.secret_key = default['SECRET_KEY']
 app.config['MONGO_DBNAME'] = default['DATABASE_NAME']
-app.config['MONGO_URI'] = default['MONGO_URI']
+app.config['MONGO_URI'] = os.environ['MONGODB_URI'] #default['MONGO_URI']
 app.config['PREFERRED_URL_SCHEME'] = "https"
 
 # Create Pymongo
