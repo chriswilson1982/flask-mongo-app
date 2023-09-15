@@ -11,13 +11,18 @@ from verification import generate_confirmation_token
 def send_email(receiver_email, subject, plaintext, html):
 
     # Connection configuration
-    config = configparser.ConfigParser()
-    config.read('configuration.ini')
-    email_config = config['EMAIL']
-    SMTP_SERVER = email_config['SMTP_SERVER']
-    PORT = 587  # For starttls
-    SENDER_EMAIL = email_config['SENDER_EMAIL']
-    PASSWORD = email_config['PASSWORD']
+    # config = configparser.ConfigParser()
+    # config.read('configuration.ini')
+    # email_config = config['EMAIL']
+    # SMTP_SERVER = email_config['SMTP_SERVER']
+    # PORT = 587  # For starttls
+    # SENDER_EMAIL = email_config['SENDER_EMAIL']
+    # PASSWORD = email_config['PASSWORD']
+
+    SMTP_SERVER = os.environ.get('SMTP_SERVER')
+    PORT = os.environ.get('EMAIL_PORT')
+    SENDER_EMAIL = os.environ.get('SENDER_EMAIL')
+    PASSWORD = os.environ.get('EMAIL_PASSWORD')
 
     # Message setup
     message = MIMEMultipart("alternative")
