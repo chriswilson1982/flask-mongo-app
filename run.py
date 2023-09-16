@@ -32,7 +32,7 @@ config = configparser.ConfigParser()
 config.read('configuration.ini')
 default = config['DEFAULT']
 app.secret_key = default['SECRET_KEY']
-app.config['MONGO_DBNAME'] = default['DATABASE_NAME']
+app.config['MONGO_DBNAME'] = os.environ.get('MONGO_DBNAME')
 app.config['MONGO_URI'] = os.environ.get('MONGODB_URI') #default['MONGO_URI']
 app.config['PREFERRED_URL_SCHEME'] = "https"
 
