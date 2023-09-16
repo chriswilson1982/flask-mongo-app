@@ -5,6 +5,7 @@ import configparser
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from verification import generate_confirmation_token
+import os
 
 
 # Common email sending function
