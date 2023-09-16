@@ -176,8 +176,8 @@ def send_verification_email():
 @app.route('/profile', methods=['GET'])
 @login_required
 def profile():
-    notes = mongo.db.notes.find(
-        {"user_id": current_user.id, "deleted": False}).sort("timestamp", -1)
+    notes = list(mongo.db.notes.find(
+        {"user_id": current_user.id, "deleted": False}).sort("timestamp", -1))
     return render_template('profile.html', notes=notes, title=current_user.title)
 
 
