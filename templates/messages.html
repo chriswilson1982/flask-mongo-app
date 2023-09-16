@@ -25,12 +25,9 @@
                     </div>
                 </div>
             </div>
-            {% endfor %}
-
-            {% if inbox_messages.count() == 0 %}
+            {% else %}
             <p>You have no messages here</p>
-            {% endif %}
-
+            {% endfor %}
 
         </div>
 
@@ -57,11 +54,9 @@
                     </div>
                 </div>
             </div>
-            {% endfor %}
-
-            {% if sent_messages.count() == 0 %}
+            {% else %}
             <p>You have no messages here</p>
-            {% endif %}
+            {% endfor %}
 
         </div>
 
