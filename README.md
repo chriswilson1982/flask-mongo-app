@@ -10,4 +10,4 @@ Run the app using the terminal command: ```python run.py```
 
 ## Live demo
 
-The app is live for demonstration purposes at [demo.chriswilson.app](https://demo.chriswilson.app).
+The app is live for demonstration purposes at [flask-mongodb-demo.chriswilson.app](https://flask-mongodb-demo.chriswilson.app).
